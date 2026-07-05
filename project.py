@@ -27,3 +27,19 @@ def editor_node(state: pipelinestate) -> dict:
     response = llm.invoke(prompt)
 
     return {"edited_text": response.content.strip()}
+
+
+def scriptwriter_node(state: pipelinestate) -> dict:
+    """Stage 2 - format the clean text in to engaging video script style"""
+    print("\n---[Stage-2] Executing scriptwriter node---")
+
+    prompt = (
+        "you are a cherismatic youtube content creator, take this edited text and transform"
+        "it into a highly engaging, punchy, conversational video script hook. Make it sound"
+        "like a real person speaking pasionately. return only the script content\n\n"
+        f"Edited Text:\n{state['edited_text']}"
+    )
+
+    response = llm.invoke(prompt)
+
+    return {"script_text": response.content.strip()}
